@@ -344,28 +344,36 @@ const Index = () => {
         <div className="container mx-auto text-center">
           <Icon name="Phone" size={64} className="mx-auto mb-6" />
           <h3 className="text-4xl font-bold mb-4">Готовы выбрать свой автомобиль?</h3>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-2 opacity-90">
             Свяжитесь с нами для консультации и виртуального осмотра
           </p>
+          <p className="text-2xl font-semibold mb-8">
+            Вячеслав Мокроусов
+          </p>
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Button size="lg" variant="secondary" className="text-lg px-8">
-              <Icon name="Phone" size={20} className="mr-2" />
-              +7 (999) 123-45-67
+            <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
+              <a href="tel:+79144348577">
+                <Icon name="Phone" size={20} className="mr-2" />
+                +7 (914) 434-85-77
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 bg-white/10 text-white border-white hover:bg-white hover:text-primary">
-              <Icon name="Mail" size={20} className="mr-2" />
-              info@manchuria-auto.ru
+            <Button size="lg" variant="outline" className="text-lg px-8 bg-white/10 text-white border-white hover:bg-white hover:text-primary" asChild>
+              <a href="https://t.me/SlavaMokrousov" target="_blank" rel="noopener noreferrer">
+                <Icon name="Send" size={20} className="mr-2" />
+                Telegram
+              </a>
             </Button>
           </div>
           <div className="flex justify-center gap-4">
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-              <Icon name="MessageCircle" size={24} />
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" asChild>
+              <a href="https://t.me/SlavaMokrousov" target="_blank" rel="noopener noreferrer">
+                <Icon name="Send" size={24} />
+              </a>
             </Button>
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-              <Icon name="Send" size={24} />
-            </Button>
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-              <Icon name="Instagram" size={24} />
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" asChild>
+              <a href="tel:+79144348577">
+                <Icon name="Phone" size={24} />
+              </a>
             </Button>
           </div>
         </div>
