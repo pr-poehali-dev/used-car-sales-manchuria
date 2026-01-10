@@ -3,9 +3,38 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('catalog');
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    message: ''
+  });
+  const { toast } = useToast();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: 'Заявка отправлена!',
+      description: 'Мы свяжемся с вами в ближайшее время.',
+    });
+    setIsFormOpen(false);
+    setFormData({ name: '', phone: '', message: '' });
+  };
 
   const cars = [
     {
@@ -94,10 +123,58 @@ const Index = () => {
                 </button>
               ))}
             </div>
-            <Button className="gradient-primary text-white">
-              <Icon name="Phone" size={20} className="mr-2" />
-              Связаться
-            </Button>
+            <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+              <DialogTrigger asChild>
+                <Button className="gradient-primary text-white">
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  Связаться
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Оставить заявку</DialogTitle>
+                  <DialogDescription>
+                    Заполните форму и мы свяжемся с вами для консультации
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Ваше имя</Label>
+                    <Input
+                      id="name"
+                      placeholder="Введите ваше имя"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Телефон</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+7 (999) 123-45-67"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Сообщение</Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Какой автомобиль вас интересует?"
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      rows={4}
+                    />
+                  </div>
+                  <Button type="submit" className="w-full gradient-primary text-white">
+                    Отправить заявку
+                  </Button>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </nav>
       </header>
@@ -196,10 +273,45 @@ const Index = () => {
                   </div>
                   <div className="flex items-center justify-between pt-4 border-t">
                     <span className="text-3xl font-bold gradient-text">{car.price}</span>
-                    <Button className="gradient-primary text-white">
-                      Подробнее
-                      <Icon name="ArrowRight" size={16} className="ml-2" />
-                    </Button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="gradient-primary text-white">
+                          Подробнее
+                          <Icon name="ArrowRight" size={16} className="ml-2" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Запрос информации</DialogTitle>
+                          <DialogDescription>
+                            Оставьте контакты, мы вышлем подробную информацию об автомобиле
+                          </DialogDescription>
+                        </DialogHeader>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="car-name">Ваше имя</Label>
+                            <Input
+                              id="car-name"
+                              placeholder="Введите ваше имя"
+                              required
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="car-phone">Телефон</Label>
+                            <Input
+                              id="car-phone"
+                              type="tel"
+                              placeholder="+7 (999) 123-45-67"
+                              required
+                            />
+                          </div>
+                          <input type="hidden" value={car.brand} />
+                          <Button type="submit" className="w-full gradient-primary text-white">
+                            Получить информацию
+                          </Button>
+                        </form>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </CardContent>
               </Card>
