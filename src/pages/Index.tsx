@@ -571,14 +571,43 @@ const Index = () => {
               🚚 Логистика
             </Badge>
             <h3 className="text-4xl font-bold mb-4">Доставка и растаможка</h3>
-            <p className="text-xl text-gray-600">Полный цикл — от выбора до передачи ключей</p>
+            <p className="text-xl text-gray-600">Маньчжурия → СВХ Забайкальск → Чита</p>
           </div>
+
+          <Card className="mb-12 p-8 bg-white/80 backdrop-blur-sm">
+            <div className="grid md:grid-cols-3 gap-8 items-center">
+              <div className="text-center">
+                <div className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <Icon name="MapPin" size={40} className="text-primary" />
+                </div>
+                <h4 className="text-xl font-bold mb-2">Маньчжурия (Китай)</h4>
+                <p className="text-gray-600">Покупка и оформление документов</p>
+              </div>
+              <div className="text-center">
+                <Icon name="ArrowRight" size={32} className="text-primary mx-auto mb-4" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-secondary/10 rounded-full flex items-center justify-center">
+                  <Icon name="Building2" size={40} className="text-secondary" />
+                </div>
+                <h4 className="text-xl font-bold mb-2">СВХ Забайкальск</h4>
+                <p className="text-gray-600">Таможенное оформление и проверка</p>
+              </div>
+              <div className="text-center">
+                <Icon name="ArrowRight" size={32} className="text-primary mx-auto mb-4" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
+                  <Icon name="Home" size={40} className="text-accent" />
+                </div>
+                <h4 className="text-xl font-bold mb-2">г. Чита</h4>
+                <p className="text-gray-600">Передача автомобиля клиенту</p>
+              </div>
+            </div>
+          </Card>
+
           <div className="grid md:grid-cols-4 gap-6">
             {[
               { icon: 'Search', title: 'Подбор авто', desc: 'Выбираете автомобиль из каталога с 360° осмотром' },
               { icon: 'FileCheck', title: 'Документы', desc: 'Оформляем все необходимые документы и таможню' },
               { icon: 'Truck', title: 'Доставка', desc: 'Транспортируем автомобиль за 7-14 дней' },
-              { icon: 'Key', title: 'Передача', desc: 'Получаете готовый к эксплуатации автомобиль' },
+              { icon: 'Key', title: 'Передача', desc: 'Получаете готовый к эксплуатации автомобиль в Чите' },
             ].map((step, idx) => (
               <Card key={idx} className="text-center p-6 hover:shadow-lg transition-all">
                 <div className="w-16 h-16 mx-auto mb-4 gradient-primary rounded-full flex items-center justify-center">
