@@ -103,6 +103,61 @@ const Index = () => {
       ],
       features: ['Турбо', 'AWD', 'Панорамная крыша'],
     },
+    {
+      id: 7,
+      brand: 'Chery Tiggo 8 Pro',
+      year: 2023,
+      price: '2 290 000 ₽',
+      mileage: '12 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/c7c320c7-612d-465b-9c7d-2d9bc3c6e423.jpg',
+      ],
+      features: ['7 мест', 'Турбо', 'Мультимедиа'],
+    },
+    {
+      id: 8,
+      brand: 'Geely Coolray',
+      year: 2023,
+      price: '1 850 000 ₽',
+      mileage: '8 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/22b854d8-7ef1-4402-b6e8-bdac60f5419a.jpg',
+      ],
+      features: ['Спорт', 'Экономичный', 'Умный салон'],
+    },
+    {
+      id: 9,
+      brand: 'Haval Jolion',
+      year: 2023,
+      price: '1 990 000 ₽',
+      mileage: '5 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/9a159f1f-5b1e-440d-86c9-f040b25efc51.jpg',
+      ],
+      features: ['Гибрид', 'Компактный', 'Круиз-контроль'],
+    },
+    {
+      id: 10,
+      brand: 'BYD Song Plus',
+      year: 2023,
+      price: '3 450 000 ₽',
+      mileage: '3 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/f1284abb-6feb-47dc-be56-cb5cfabac8f9.jpg',
+      ],
+      features: ['Электро', 'Батарея 500 км', 'Премиум'],
+    },
+    {
+      id: 11,
+      brand: 'Changan CS75 Plus',
+      year: 2023,
+      price: '2 150 000 ₽',
+      mileage: '10 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/5f86c9e4-969c-41f1-83a6-ff377a02a21d.jpg',
+      ],
+      features: ['AWD', 'Турбо 2.0', 'Кожа+Алькантара'],
+    },
   ];
 
   const testimonials = [
