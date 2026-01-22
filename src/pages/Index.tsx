@@ -602,7 +602,7 @@ const Index = () => {
             </div>
           </Card>
 
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-4 gap-6 mb-12">
             {[
               { icon: 'Search', title: 'Подбор авто', desc: 'Выбираете автомобиль из каталога с 360° осмотром' },
               { icon: 'FileCheck', title: 'Документы', desc: 'Оформляем все необходимые документы и таможню' },
@@ -618,6 +618,45 @@ const Index = () => {
               </Card>
             ))}
           </div>
+
+          <Card className="p-8 bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-primary/20">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 mx-auto mb-4 gradient-primary rounded-full flex items-center justify-center">
+                <Icon name="ClipboardCheck" size={32} className="text-white" />
+              </div>
+              <h4 className="text-3xl font-bold mb-2">Таможенная очистка под ключ</h4>
+              <p className="text-lg text-gray-600">Берём на себя все вопросы растаможки</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { icon: 'FileText', title: 'Сбор документов', desc: 'Подготовка полного пакета документов для таможни' },
+                { icon: 'Calculator', title: 'Расчет пошлин', desc: 'Точный расчет таможенных платежей и сборов' },
+                { icon: 'Stamp', title: 'Декларирование', desc: 'Оформление таможенной декларации' },
+                { icon: 'ShieldCheck', title: 'Сертификация', desc: 'Получение СБКТС и других сертификатов' },
+                { icon: 'Banknote', title: 'Оплата пошлин', desc: 'Внесение всех таможенных платежей' },
+                { icon: 'CheckCircle', title: 'Регистрация', desc: 'Постановка на учёт в ГИБДД' },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-start gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-lg">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Icon name={item.icon as any} size={20} className="text-primary" />
+                  </div>
+                  <div>
+                    <h5 className="font-bold mb-1">{item.title}</h5>
+                    <p className="text-sm text-gray-600">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <p className="text-lg font-semibold text-gray-800 mb-4">
+                Вы получаете полностью оформленный автомобиль с российскими номерами!
+              </p>
+              <Button size="lg" className="gradient-primary text-white" onClick={() => setIsFormOpen(true)}>
+                <Icon name="MessageCircle" size={20} className="mr-2" />
+                Узнать стоимость растаможки
+              </Button>
+            </div>
+          </Card>
         </div>
       </section>
 
