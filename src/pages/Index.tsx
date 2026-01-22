@@ -214,6 +214,30 @@ const Index = () => {
       ],
       features: ['Электро', 'Премиум', 'Быстрая зарядка'],
     },
+    {
+      id: 15,
+      brand: 'Tank 300',
+      year: 2023,
+      price: '3 350 000 ₽',
+      priceValue: 3350000,
+      mileage: '9 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/b338a7a7-c678-4750-a8c2-c217aeda2c25.jpg',
+      ],
+      features: ['Внедорожник', 'Рамный', 'Блокировки'],
+    },
+    {
+      id: 16,
+      brand: 'Tank 500',
+      year: 2023,
+      price: '4 650 000 ₽',
+      priceValue: 4650000,
+      mileage: '7 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/65a6bbdd-c293-4bab-9d56-49f6808014ef.jpg',
+      ],
+      features: ['Люкс', 'Пневмоподвеска', 'V6 3.0T'],
+    },
   ];
 
   const testimonials = [
@@ -388,8 +412,8 @@ const Index = () => {
             </div>
             <div className="animate-scale-in">
               <img
-                src="https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/538af001-f075-4961-b4f8-46d9049f977d.jpg"
-                alt="Автосалон"
+                src="https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/65a6bbdd-c293-4bab-9d56-49f6808014ef.jpg"
+                alt="Tank 500"
                 className="rounded-3xl shadow-2xl w-full"
               />
             </div>
