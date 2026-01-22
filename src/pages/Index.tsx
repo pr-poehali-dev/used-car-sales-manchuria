@@ -44,7 +44,7 @@ const Index = () => {
       price: '2 450 000 ₽',
       mileage: '45 000 км',
       images: [
-        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/6d606c9f-6fee-4838-958f-53cd2d901fb1.jpg',
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/334b0cd8-748d-4681-9320-9df55590890e.jpg',
       ],
       features: ['Автомат', 'Полный привод', 'Кожаный салон'],
     },
@@ -55,20 +55,53 @@ const Index = () => {
       price: '3 200 000 ₽',
       mileage: '28 000 км',
       images: [
-        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/6d606c9f-6fee-4838-958f-53cd2d901fb1.jpg',
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/e8d209d0-56ca-4280-a2aa-a44dade0ab84.jpg',
       ],
       features: ['Гибрид', 'Панорама', 'Камера 360°'],
     },
     {
       id: 3,
-      brand: 'Mazda CX-5',
-      year: 2021,
-      price: '2 850 000 ₽',
-      mileage: '52 000 км',
+      brand: 'BMW X5',
+      year: 2023,
+      price: '5 800 000 ₽',
+      mileage: '15 000 км',
       images: [
-        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/6d606c9f-6fee-4838-958f-53cd2d901fb1.jpg',
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/659c467d-1fb3-4073-a738-7e1e026c46cf.jpg',
       ],
-      features: ['Турбо', 'AWD', 'Подогрев сидений'],
+      features: ['Премиум', 'Полный привод', 'Адаптивный круиз'],
+    },
+    {
+      id: 4,
+      brand: 'Mercedes-Benz E-Class',
+      year: 2022,
+      price: '4 900 000 ₽',
+      mileage: '22 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/bcfb7756-a8b9-4b22-9b78-8492aacce68f.jpg',
+      ],
+      features: ['Бизнес-класс', 'Автопилот', 'Массаж сидений'],
+    },
+    {
+      id: 5,
+      brand: 'Hyundai Tucson',
+      year: 2023,
+      price: '2 650 000 ₽',
+      mileage: '8 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/1548b581-aeed-457b-b7a0-94aff32abb54.jpg',
+      ],
+      features: ['Новинка', 'Экономичный', 'Подогрев руля'],
+    },
+    {
+      id: 6,
+      brand: 'Volkswagen Tiguan',
+      year: 2021,
+      price: '3 100 000 ₽',
+      mileage: '38 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/c0b67090-d12a-44c0-b23b-954d87b0eb76.jpg',
+      ],
+      features: ['Турбо', 'AWD', 'Панорамная крыша'],
     },
   ];
 
