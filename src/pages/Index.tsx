@@ -178,6 +178,42 @@ const Index = () => {
       ],
       features: ['AWD', 'Турбо 2.0', 'Кожа+Алькантара'],
     },
+    {
+      id: 12,
+      brand: 'Li Auto L9',
+      year: 2023,
+      price: '4 200 000 ₽',
+      priceValue: 4200000,
+      mileage: '6 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/269ca5f9-4c3b-4348-a4b6-14ef5eeaca12.jpg',
+      ],
+      features: ['Гибрид', '6 мест', 'Умный дом на колёсах'],
+    },
+    {
+      id: 13,
+      brand: 'Xiaomi SU7',
+      year: 2024,
+      price: '3 800 000 ₽',
+      priceValue: 3800000,
+      mileage: '2 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/4a769df3-c7cc-45cf-926b-011a3bc6085f.jpg',
+      ],
+      features: ['Электро', 'Спортседан', 'Автопилот'],
+    },
+    {
+      id: 14,
+      brand: 'Zeekr 001',
+      year: 2023,
+      price: '4 500 000 ₽',
+      priceValue: 4500000,
+      mileage: '4 000 км',
+      images: [
+        'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/a75f7f09-05f4-47a9-b3da-c01ff6e9d8d5.jpg',
+      ],
+      features: ['Электро', 'Премиум', 'Быстрая зарядка'],
+    },
   ];
 
   const testimonials = [
