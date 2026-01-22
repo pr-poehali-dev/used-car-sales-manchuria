@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -24,6 +31,8 @@ const Index = () => {
     phone: '',
     message: ''
   });
+  const [selectedBrand, setSelectedBrand] = useState<string>('all');
+  const [priceRange, setPriceRange] = useState<string>('all');
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -42,6 +51,7 @@ const Index = () => {
       brand: 'Toyota Camry',
       year: 2021,
       price: '2 450 000 ₽',
+      priceValue: 2450000,
       mileage: '45 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/334b0cd8-748d-4681-9320-9df55590890e.jpg',
@@ -53,6 +63,7 @@ const Index = () => {
       brand: 'Honda CR-V',
       year: 2022,
       price: '3 200 000 ₽',
+      priceValue: 3200000,
       mileage: '28 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/e8d209d0-56ca-4280-a2aa-a44dade0ab84.jpg',
@@ -64,6 +75,7 @@ const Index = () => {
       brand: 'BMW X5',
       year: 2023,
       price: '5 800 000 ₽',
+      priceValue: 5800000,
       mileage: '15 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/659c467d-1fb3-4073-a738-7e1e026c46cf.jpg',
@@ -75,6 +87,7 @@ const Index = () => {
       brand: 'Mercedes-Benz E-Class',
       year: 2022,
       price: '4 900 000 ₽',
+      priceValue: 4900000,
       mileage: '22 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/bcfb7756-a8b9-4b22-9b78-8492aacce68f.jpg',
@@ -86,6 +99,7 @@ const Index = () => {
       brand: 'Hyundai Tucson',
       year: 2023,
       price: '2 650 000 ₽',
+      priceValue: 2650000,
       mileage: '8 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/1548b581-aeed-457b-b7a0-94aff32abb54.jpg',
@@ -97,6 +111,7 @@ const Index = () => {
       brand: 'Volkswagen Tiguan',
       year: 2021,
       price: '3 100 000 ₽',
+      priceValue: 3100000,
       mileage: '38 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/c0b67090-d12a-44c0-b23b-954d87b0eb76.jpg',
@@ -108,6 +123,7 @@ const Index = () => {
       brand: 'Chery Tiggo 8 Pro',
       year: 2023,
       price: '2 290 000 ₽',
+      priceValue: 2290000,
       mileage: '12 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/c7c320c7-612d-465b-9c7d-2d9bc3c6e423.jpg',
@@ -119,6 +135,7 @@ const Index = () => {
       brand: 'Geely Coolray',
       year: 2023,
       price: '1 850 000 ₽',
+      priceValue: 1850000,
       mileage: '8 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/22b854d8-7ef1-4402-b6e8-bdac60f5419a.jpg',
@@ -130,6 +147,7 @@ const Index = () => {
       brand: 'Haval Jolion',
       year: 2023,
       price: '1 990 000 ₽',
+      priceValue: 1990000,
       mileage: '5 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/9a159f1f-5b1e-440d-86c9-f040b25efc51.jpg',
@@ -141,6 +159,7 @@ const Index = () => {
       brand: 'BYD Song Plus',
       year: 2023,
       price: '3 450 000 ₽',
+      priceValue: 3450000,
       mileage: '3 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/f1284abb-6feb-47dc-be56-cb5cfabac8f9.jpg',
@@ -152,6 +171,7 @@ const Index = () => {
       brand: 'Changan CS75 Plus',
       year: 2023,
       price: '2 150 000 ₽',
+      priceValue: 2150000,
       mileage: '10 000 км',
       images: [
         'https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/5f86c9e4-969c-41f1-83a6-ff377a02a21d.jpg',
@@ -177,6 +197,30 @@ const Index = () => {
       rating: 5,
     },
   ];
+
+  const brands = useMemo(() => {
+    const uniqueBrands = Array.from(new Set(cars.map(car => car.brand)));
+    return ['all', ...uniqueBrands];
+  }, []);
+
+  const filteredCars = useMemo(() => {
+    return cars.filter(car => {
+      const brandMatch = selectedBrand === 'all' || car.brand === selectedBrand;
+      
+      let priceMatch = true;
+      if (priceRange === 'under2m') {
+        priceMatch = car.priceValue < 2000000;
+      } else if (priceRange === '2m-3m') {
+        priceMatch = car.priceValue >= 2000000 && car.priceValue < 3000000;
+      } else if (priceRange === '3m-4m') {
+        priceMatch = car.priceValue >= 3000000 && car.priceValue < 4000000;
+      } else if (priceRange === 'over4m') {
+        priceMatch = car.priceValue >= 4000000;
+      }
+      
+      return brandMatch && priceMatch;
+    });
+  }, [selectedBrand, priceRange]);
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -326,8 +370,60 @@ const Index = () => {
             <h3 className="text-4xl font-bold mb-4">Каталог автомобилей</h3>
             <p className="text-xl text-gray-600">Виртуальный осмотр 360° для каждого авто</p>
           </div>
+
+          <div className="flex flex-wrap gap-4 mb-8 justify-center">
+            <div className="w-full md:w-64">
+              <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Выберите марку" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Все марки</SelectItem>
+                  {brands.filter(b => b !== 'all').map((brand) => (
+                    <SelectItem key={brand} value={brand}>
+                      {brand}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="w-full md:w-64">
+              <Select value={priceRange} onValueChange={setPriceRange}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Ценовой диапазон" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Любая цена</SelectItem>
+                  <SelectItem value="under2m">До 2 млн ₽</SelectItem>
+                  <SelectItem value="2m-3m">2-3 млн ₽</SelectItem>
+                  <SelectItem value="3m-4m">3-4 млн ₽</SelectItem>
+                  <SelectItem value="over4m">Более 4 млн ₽</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {(selectedBrand !== 'all' || priceRange !== 'all') && (
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSelectedBrand('all');
+                  setPriceRange('all');
+                }}
+                className="flex items-center gap-2"
+              >
+                <Icon name="X" size={16} />
+                Сбросить фильтры
+              </Button>
+            )}
+          </div>
+
+          <div className="text-center mb-6 text-gray-600">
+            Найдено автомобилей: <span className="font-bold text-primary">{filteredCars.length}</span>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cars.map((car) => (
+            {filteredCars.map((car) => (
               <Card key={car.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
                 <div className="relative overflow-hidden">
                   <img
