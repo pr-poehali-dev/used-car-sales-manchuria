@@ -17,7 +17,7 @@ const Header = ({ activeSection, onSectionChange }: HeaderProps) => {
             АВТО-КИТАЙ.РУ
           </span>
         </div>
-        <div className="hidden md:flex space-x-1">
+        <div className="hidden md:flex items-center space-x-1">
           {[
             { id: 'hero', label: 'Главная' },
             { id: 'catalog', label: 'Каталог' },
@@ -34,6 +34,12 @@ const Header = ({ activeSection, onSectionChange }: HeaderProps) => {
               {item.label}
             </Button>
           ))}
+          <a
+            href="tel:+79144348577"
+            className="ml-4 text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1"
+          >
+            📞 +7 (914) 434-85-77
+          </a>
         </div>
       </nav>
     </header>

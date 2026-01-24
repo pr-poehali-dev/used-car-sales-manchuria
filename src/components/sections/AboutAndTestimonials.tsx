@@ -110,7 +110,7 @@ const AboutAndTestimonials = ({
             Свяжитесь с нами для бесплатной консультации. Поможем подобрать
             идеальный вариант под ваши требования.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Button
               size="lg"
               onClick={onConsultationOpen}
@@ -125,19 +125,42 @@ const AboutAndTestimonials = ({
               className="border-2 border-white text-white hover:bg-white/10 px-8 py-6 text-lg"
               asChild
             >
-              <a href="tel:+79991234567">
+              <a href="tel:+79144348577">
                 <Icon name="Phone" className="mr-2" size={20} />
-                +7 (999) 123-45-67
+                +7 (914) 434-85-77
               </a>
             </Button>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-blue-50">
+            <a href="https://t.me/SlavaMokrousov" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
+              <Icon name="Send" size={20} />
+              <span>Telegram: Slava Mokrousov</span>
+            </a>
+            <a href="mailto:duetzab@yandex.ru" className="flex items-center gap-2 hover:text-white transition-colors">
+              <Icon name="Mail" size={20} />
+              <span>duetzab@yandex.ru</span>
+            </a>
           </div>
         </div>
       </section>
 
       <footer className="bg-gray-900 text-gray-400 py-8 px-4">
-        <div className="container mx-auto text-center">
+        <div className="container mx-auto text-center space-y-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm">
+            <a href="tel:+79144348577" className="hover:text-white transition-colors">
+              📞 +7 (914) 434-85-77
+            </a>
+            <span className="hidden sm:inline">•</span>
+            <a href="mailto:duetzab@yandex.ru" className="hover:text-white transition-colors">
+              ✉️ duetzab@yandex.ru
+            </a>
+            <span className="hidden sm:inline">•</span>
+            <a href="https://t.me/SlavaMokrousov" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              📱 Telegram
+            </a>
+          </div>
           <p>© 2024 АВТО-КИТАЙ.РУ. Все права защищены.</p>
-          <p className="text-sm mt-2">
+          <p className="text-sm">
             Помогаем выбрать и доставить автомобили из Китая с 2020 года
           </p>
         </div>
