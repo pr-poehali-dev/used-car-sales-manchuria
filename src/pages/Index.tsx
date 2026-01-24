@@ -1,8 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import Icon from '@/components/ui/icon';
 import {
   Dialog,
   DialogContent,
@@ -11,17 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import Header from '@/components/sections/Header';
+import HeroSection from '@/components/sections/HeroSection';
+import CarCatalog from '@/components/sections/CarCatalog';
+import AboutAndTestimonials from '@/components/sections/AboutAndTestimonials';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('catalog');
@@ -226,30 +220,6 @@ const Index = () => {
     },
   ];
 
-  const brands = useMemo(() => {
-    const uniqueBrands = Array.from(new Set(cars.map(car => car.brand)));
-    return ['all', ...uniqueBrands];
-  }, []);
-
-  const filteredCars = useMemo(() => {
-    return cars.filter(car => {
-      const brandMatch = selectedBrand === 'all' || car.brand === selectedBrand;
-      
-      let priceMatch = true;
-      if (priceRange === 'under2m') {
-        priceMatch = car.priceValue < 2000000;
-      } else if (priceRange === '2m-3m') {
-        priceMatch = car.priceValue >= 2000000 && car.priceValue < 3000000;
-      } else if (priceRange === '3m-4m') {
-        priceMatch = car.priceValue >= 3000000 && car.priceValue < 4000000;
-      } else if (priceRange === 'over4m') {
-        priceMatch = car.priceValue >= 4000000;
-      }
-      
-      return brandMatch && priceMatch;
-    });
-  }, [selectedBrand, priceRange]);
-
   const scrollToSection = (id: string) => {
     setActiveSection(id);
     const element = document.getElementById(id);
@@ -258,529 +228,85 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
-        <nav className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Icon name="Car" className="text-primary" size={32} />
-              <h1 className="text-2xl font-bold gradient-text">Авто из Маньчжурии</h1>
-            </div>
-            <div className="hidden md:flex items-center gap-6">
-              {['catalog', 'delivery', 'guarantee', 'reviews', 'about', 'contacts'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`font-medium transition-colors hover:text-primary ${
-                    activeSection === section ? 'text-primary' : 'text-gray-600'
-                  }`}
-                >
-                  {section === 'catalog' && 'Каталог'}
-                  {section === 'delivery' && 'Доставка'}
-                  {section === 'guarantee' && 'Гарантия'}
-                  {section === 'reviews' && 'Отзывы'}
-                  {section === 'about' && 'О нас'}
-                  {section === 'contacts' && 'Контакты'}
-                </button>
-              ))}
-            </div>
-            <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-              <DialogTrigger asChild>
-                <Button className="gradient-primary text-white">
-                  <Icon name="Phone" size={20} className="mr-2" />
-                  Связаться
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Оставить заявку</DialogTitle>
-                  <DialogDescription>
-                    Заполните форму и мы свяжемся с вами для консультации
-                  </DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Ваше имя</Label>
-                    <Input
-                      id="name"
-                      placeholder="Введите ваше имя"
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Телефон</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="+7 (999) 123-45-67"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Сообщение</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Какой автомобиль вас интересует?"
-                      value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      rows={4}
-                    />
-                  </div>
-                  <Button type="submit" className="w-full gradient-primary text-white">
-                    Отправить заявку
-                  </Button>
-                </form>
-              </DialogContent>
-            </Dialog>
-          </div>
-        </nav>
-      </header>
+      <Header activeSection={activeSection} onSectionChange={scrollToSection} />
+      
+      <HeroSection
+        onConsultationOpen={() => setIsFormOpen(true)}
+        onScrollToCatalog={() => scrollToSection('catalog')}
+      />
 
-      <section className="pt-32 pb-20 px-4">
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-                🚗 Прямые поставки из Китая
-              </Badge>
-              <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Легковые б/у авто <br />
-                <span className="gradient-text">из Маньчжурии</span>
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Качественные автомобили с виртуальным осмотром 360°, полной гарантией и быстрой доставкой
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button size="lg" className="gradient-primary text-white text-lg px-8" onClick={() => scrollToSection('catalog')}>
-                  <Icon name="Search" size={20} className="mr-2" />
-                  Смотреть каталог
-                </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  <Icon name="Play" size={20} className="mr-2" />
-                  Виртуальный тур
-                </Button>
-              </div>
-              <div className="grid grid-cols-3 gap-6 mt-12">
-                <div className="text-center">
-                  <div className="text-3xl font-bold gradient-text">500+</div>
-                  <div className="text-sm text-gray-600">Авто в наличии</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold gradient-text">2 года</div>
-                  <div className="text-sm text-gray-600">Гарантия</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold gradient-text">7-14 дней</div>
-                  <div className="text-sm text-gray-600">Доставка</div>
-                </div>
-              </div>
-            </div>
-            <div className="animate-scale-in">
-              <img
-                src="https://cdn.poehali.dev/projects/deafa282-ebc6-456a-9f07-ca01ef777b28/files/65a6bbdd-c293-4bab-9d56-49f6808014ef.jpg"
-                alt="Tank 500"
-                className="rounded-3xl shadow-2xl w-full"
+      <CarCatalog
+        cars={cars}
+        selectedBrand={selectedBrand}
+        priceRange={priceRange}
+        onBrandChange={setSelectedBrand}
+        onPriceRangeChange={setPriceRange}
+        onConsultationOpen={() => setIsFormOpen(true)}
+      />
+
+      <AboutAndTestimonials
+        testimonials={testimonials}
+        onConsultationOpen={() => setIsFormOpen(true)}
+      />
+
+      <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+        <DialogTrigger asChild>
+          <button className="hidden">Open</button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">Получить консультацию</DialogTitle>
+            <DialogDescription>
+              Оставьте свои контакты, и мы свяжемся с вами в ближайшее время
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4 pt-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Ваше имя</Label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                placeholder="Иван Иванов"
+                required
               />
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="catalog" className="py-20 px-4 bg-white">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 bg-secondary/10 text-secondary border-secondary/20">
-              🎯 Актуальные предложения
-            </Badge>
-            <h3 className="text-4xl font-bold mb-4">Каталог автомобилей</h3>
-            <p className="text-xl text-gray-600">Виртуальный осмотр 360° для каждого авто</p>
-          </div>
-
-          <div className="flex flex-wrap gap-4 mb-8 justify-center">
-            <div className="w-full md:w-64">
-              <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Выберите марку" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Все марки</SelectItem>
-                  {brands.filter(b => b !== 'all').map((brand) => (
-                    <SelectItem key={brand} value={brand}>
-                      {brand}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="space-y-2">
+              <Label htmlFor="phone">Телефон</Label>
+              <Input
+                id="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                placeholder="+7 (999) 123-45-67"
+                required
+              />
             </div>
-
-            <div className="w-full md:w-64">
-              <Select value={priceRange} onValueChange={setPriceRange}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Ценовой диапазон" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Любая цена</SelectItem>
-                  <SelectItem value="under2m">До 2 млн ₽</SelectItem>
-                  <SelectItem value="2m-3m">2-3 млн ₽</SelectItem>
-                  <SelectItem value="3m-4m">3-4 млн ₽</SelectItem>
-                  <SelectItem value="over4m">Более 4 млн ₽</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="space-y-2">
+              <Label htmlFor="message">Сообщение (необязательно)</Label>
+              <Textarea
+                id="message"
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                placeholder="Интересует Toyota Camry..."
+                rows={4}
+              />
             </div>
-
-            {(selectedBrand !== 'all' || priceRange !== 'all') && (
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSelectedBrand('all');
-                  setPriceRange('all');
-                }}
-                className="flex items-center gap-2"
-              >
-                <Icon name="X" size={16} />
-                Сбросить фильтры
-              </Button>
-            )}
-          </div>
-
-          <div className="text-center mb-6 text-gray-600">
-            Найдено автомобилей: <span className="font-bold text-primary">{filteredCars.length}</span>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredCars.map((car) => (
-              <Card key={car.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={car.images[0]}
-                    alt={car.brand}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1">
-                    <Icon name="Eye" size={16} className="text-primary" />
-                    <span className="text-sm font-medium">360°</span>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <h4 className="text-2xl font-bold mb-2">{car.brand}</h4>
-                  <div className="flex items-center gap-4 text-gray-600 mb-4">
-                    <span className="flex items-center gap-1">
-                      <Icon name="Calendar" size={16} />
-                      {car.year}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Icon name="Gauge" size={16} />
-                      {car.mileage}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {car.features.map((feature) => (
-                      <Badge key={feature} variant="secondary" className="text-xs">
-                        {feature}
-                      </Badge>
-                    ))}
-                  </div>
-                  <div className="pt-4 border-t space-y-3">
-                    <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 text-center">
-                      <p className="text-sm text-gray-600 mb-1">Цена обсуждается индивидуально</p>
-                      <p className="text-xs text-gray-500">По актуальному курсу валют</p>
-                    </div>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button className="gradient-primary text-white w-full">
-                          Узнать цену
-                          <Icon name="Phone" size={16} className="ml-2" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-md">
-                        <DialogHeader>
-                          <DialogTitle>Запрос информации</DialogTitle>
-                          <DialogDescription>
-                            Оставьте контакты, мы вышлем подробную информацию об автомобиле
-                          </DialogDescription>
-                        </DialogHeader>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="car-name">Ваше имя</Label>
-                            <Input
-                              id="car-name"
-                              placeholder="Введите ваше имя"
-                              required
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="car-phone">Телефон</Label>
-                            <Input
-                              id="car-phone"
-                              type="tel"
-                              placeholder="+7 (999) 123-45-67"
-                              required
-                            />
-                          </div>
-                          <input type="hidden" value={car.brand} />
-                          <Button type="submit" className="w-full gradient-primary text-white">
-                            Получить информацию
-                          </Button>
-                        </form>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="delivery" className="py-20 px-4 bg-gradient-to-br from-primary/5 to-secondary/5">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 bg-accent/10 text-accent border-accent/20">
-              🚚 Логистика
-            </Badge>
-            <h3 className="text-4xl font-bold mb-4">Доставка и растаможка</h3>
-            <p className="text-xl text-gray-600">Маньчжурия → СВХ Забайкальск → Чита</p>
-          </div>
-
-          <Card className="mb-12 p-8 bg-white/80 backdrop-blur-sm">
-            <div className="grid md:grid-cols-3 gap-8 items-center">
-              <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                  <Icon name="MapPin" size={40} className="text-primary" />
-                </div>
-                <h4 className="text-xl font-bold mb-2">Маньчжурия (Китай)</h4>
-                <p className="text-gray-600">Покупка и оформление документов</p>
-              </div>
-              <div className="text-center">
-                <Icon name="ArrowRight" size={32} className="text-primary mx-auto mb-4" />
-                <div className="w-20 h-20 mx-auto mb-4 bg-secondary/10 rounded-full flex items-center justify-center">
-                  <Icon name="Building2" size={40} className="text-secondary" />
-                </div>
-                <h4 className="text-xl font-bold mb-2">СВХ Забайкальск</h4>
-                <p className="text-gray-600">Таможенное оформление и проверка</p>
-              </div>
-              <div className="text-center">
-                <Icon name="ArrowRight" size={32} className="text-primary mx-auto mb-4" />
-                <div className="w-20 h-20 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
-                  <Icon name="Home" size={40} className="text-accent" />
-                </div>
-                <h4 className="text-xl font-bold mb-2">г. Чита</h4>
-                <p className="text-gray-600">Передача автомобиля клиенту</p>
-              </div>
-            </div>
-          </Card>
-
-          <div className="grid md:grid-cols-4 gap-6 mb-12">
-            {[
-              { icon: 'Search', title: 'Подбор авто', desc: 'Выбираете автомобиль из каталога с 360° осмотром' },
-              { icon: 'FileCheck', title: 'Документы', desc: 'Оформляем все необходимые документы и таможню' },
-              { icon: 'Truck', title: 'Доставка', desc: 'Транспортируем автомобиль за 7-14 дней' },
-              { icon: 'Key', title: 'Передача', desc: 'Получаете готовый к эксплуатации автомобиль в Чите' },
-            ].map((step, idx) => (
-              <Card key={idx} className="text-center p-6 hover:shadow-lg transition-all">
-                <div className="w-16 h-16 mx-auto mb-4 gradient-primary rounded-full flex items-center justify-center">
-                  <Icon name={step.icon as any} size={32} className="text-white" />
-                </div>
-                <h4 className="text-xl font-bold mb-2">{step.title}</h4>
-                <p className="text-gray-600">{step.desc}</p>
-              </Card>
-            ))}
-          </div>
-
-          <Card className="p-8 bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-primary/20">
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 mx-auto mb-4 gradient-primary rounded-full flex items-center justify-center">
-                <Icon name="ClipboardCheck" size={32} className="text-white" />
-              </div>
-              <h4 className="text-3xl font-bold mb-2">Таможенная очистка под ключ</h4>
-              <p className="text-lg text-gray-600">Берём на себя все вопросы растаможки</p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { icon: 'FileText', title: 'Сбор документов', desc: 'Подготовка полного пакета документов для таможни' },
-                { icon: 'Calculator', title: 'Расчет пошлин', desc: 'Точный расчет таможенных платежей и сборов' },
-                { icon: 'Stamp', title: 'Декларирование', desc: 'Оформление таможенной декларации' },
-                { icon: 'ShieldCheck', title: 'Сертификация', desc: 'Получение СБКТС и других сертификатов' },
-                { icon: 'Banknote', title: 'Оплата пошлин', desc: 'Внесение всех таможенных платежей' },
-                { icon: 'CheckCircle', title: 'Регистрация', desc: 'Постановка на учёт в ГИБДД' },
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-start gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-lg">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Icon name={item.icon as any} size={20} className="text-primary" />
-                  </div>
-                  <div>
-                    <h5 className="font-bold mb-1">{item.title}</h5>
-                    <p className="text-sm text-gray-600">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-8 text-center">
-              <p className="text-lg font-semibold text-gray-800 mb-4">
-                Вы получаете полностью оформленный автомобиль с российскими номерами!
-              </p>
-              <Button size="lg" className="gradient-primary text-white" onClick={() => setIsFormOpen(true)}>
-                <Icon name="MessageCircle" size={20} className="mr-2" />
-                Узнать стоимость растаможки
-              </Button>
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      <section id="guarantee" className="py-20 px-4 bg-white">
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-                ✅ Надёжность
-              </Badge>
-              <h3 className="text-4xl font-bold mb-6">Гарантия качества</h3>
-              <div className="space-y-4">
-                {[
-                  'Проверка технического состояния перед отправкой',
-                  'Юридическая чистота всех автомобилей',
-                  'Гарантия 2 года на все узлы и агрегаты',
-                  'Бесплатное сервисное обслуживание первые 6 месяцев',
-                  'Страхование на время доставки',
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                      <Icon name="Check" size={16} className="text-primary" />
-                    </div>
-                    <p className="text-lg text-gray-700">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Card className="p-6 text-center gradient-primary text-white">
-                <Icon name="Shield" size={48} className="mx-auto mb-3" />
-                <div className="text-3xl font-bold mb-2">100%</div>
-                <div className="text-sm">Юридическая чистота</div>
-              </Card>
-              <Card className="p-6 text-center bg-secondary text-white">
-                <Icon name="Award" size={48} className="mx-auto mb-3" />
-                <div className="text-3xl font-bold mb-2">2 года</div>
-                <div className="text-sm">Полная гарантия</div>
-              </Card>
-              <Card className="p-6 text-center bg-accent text-white">
-                <Icon name="Wrench" size={48} className="mx-auto mb-3" />
-                <div className="text-3xl font-bold mb-2">6 мес</div>
-                <div className="text-sm">Бесплатный сервис</div>
-              </Card>
-              <Card className="p-6 text-center gradient-primary text-white">
-                <Icon name="ThumbsUp" size={48} className="mx-auto mb-3" />
-                <div className="text-3xl font-bold mb-2">98%</div>
-                <div className="text-sm">Довольных клиентов</div>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="reviews" className="py-20 px-4 bg-gray-50">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 bg-secondary/10 text-secondary border-secondary/20">
-              ⭐ Отзывы клиентов
-            </Badge>
-            <h3 className="text-4xl font-bold mb-4">Что говорят наши клиенты</h3>
-            <p className="text-xl text-gray-600">Более 500 довольных владельцев</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="p-6 hover:shadow-lg transition-all">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Icon key={i} name="Star" size={20} className="text-yellow-400 fill-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-4 italic">&quot;{testimonial.text}&quot;</p>
-                <p className="font-semibold text-primary">{testimonial.name}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="py-20 px-4 bg-white">
-        <div className="container mx-auto text-center">
-          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-            🏢 О компании
-          </Badge>
-          <h3 className="text-4xl font-bold mb-6">Почему выбирают нас</h3>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Мы работаем напрямую с дилерами и аукционами в Маньчжурии, что позволяет предлагать лучшие цены на рынке.
-            Наш офис находится на границе, что ускоряет процесс доставки и растаможки.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: 'MapPin', title: 'Офис в Маньчжурии', desc: 'Прямая работа с поставщиками' },
-              { icon: 'Users', title: '10+ лет опыта', desc: 'Тысячи довольных клиентов' },
-              { icon: 'Headphones', title: '24/7 поддержка', desc: 'Всегда на связи с вами' },
-            ].map((item, idx) => (
-              <div key={idx} className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 gradient-primary rounded-2xl flex items-center justify-center">
-                  <Icon name={item.icon as any} size={40} className="text-white" />
-                </div>
-                <h4 className="text-xl font-bold mb-2">{item.title}</h4>
-                <p className="text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contacts" className="py-20 px-4 gradient-primary text-white">
-        <div className="container mx-auto text-center">
-          <Icon name="Phone" size={64} className="mx-auto mb-6" />
-          <h3 className="text-4xl font-bold mb-4">Готовы выбрать свой автомобиль?</h3>
-          <p className="text-xl mb-2 opacity-90">
-            Свяжитесь с нами для консультации и виртуального осмотра
-          </p>
-          <p className="text-2xl font-semibold mb-8">
-            Вячеслав Мокроусов
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
-              <a href="tel:+79144348577">
-                <Icon name="Phone" size={20} className="mr-2" />
-                +7 (914) 434-85-77
-              </a>
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+            >
+              Отправить заявку
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 bg-white/10 text-white border-white hover:bg-white hover:text-primary" asChild>
-              <a href="https://t.me/SlavaMokrousov" target="_blank" rel="noopener noreferrer">
-                <Icon name="Send" size={20} className="mr-2" />
-                Telegram
-              </a>
-            </Button>
-          </div>
-          <div className="flex justify-center gap-4">
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" asChild>
-              <a href="https://t.me/SlavaMokrousov" target="_blank" rel="noopener noreferrer">
-                <Icon name="Send" size={24} />
-              </a>
-            </Button>
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" asChild>
-              <a href="tel:+79144348577">
-                <Icon name="Phone" size={24} />
-              </a>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <footer className="bg-gray-900 text-white py-8 px-4">
-        <div className="container mx-auto text-center">
-          <p className="text-gray-400">
-            © 2024 Авто из Маньчжурии. Все права защищены.
-          </p>
-        </div>
-      </footer>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
